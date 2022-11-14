@@ -1,0 +1,20 @@
+create database actividad_BD
+go
+use actividad_BD
+go
+
+create table Fabricantes
+(
+	CodigoF int identity primary key,
+	Nombre varchar(20) not null
+)
+
+create table Articulos
+(
+	CodigoA int identity primary key,
+	Descripcion varchar(100) not null,
+	Precio int null,
+	Stock smallint not null,
+	CodFab int not null,
+	foreign key(CodFab) references Fabricantes(CodigoF)
+)
