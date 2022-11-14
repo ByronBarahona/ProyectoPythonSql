@@ -1,0 +1,26 @@
+import pyodbc
+
+connection = pyodbc.connect(
+    "Driver = {SQL Server Native Client 11.0};"
+    "Server = DESKTOP-9I8PSKV;"
+    "Database = actividad_BD;"
+    "Trusted_Connection = yes;"
+)
+
+def create(connection):
+    print("Datos Almacenados")
+    cursor = connection.cursor()
+    cursor.execute(
+        "Insert into ñe values ()"
+    )
+    connection.commit()
+
+
+
+
+
+
+
+
+create(connection)
+connection.closed()
