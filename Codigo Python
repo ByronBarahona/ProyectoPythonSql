@@ -1,26 +1,68 @@
+from sqlite3 import Cursor
 import pyodbc
 
 connection = pyodbc.connect(
-    "Driver = {SQL Server Native Client 11.0};"
-    "Server = DESKTOP-9I8PSKV;"
-    "Database = actividad_BD;"
-    "Trusted_Connection = yes;"
+    "Driver={SQL Server native Client 11.0};"
+    "Server=SCL100PCLC2008;"
+    "Database=actividad_BD;"
+    "Trusted_Connection=yes;"
 )
 
-def create(connection):
-    print("Datos Almacenados")
+def LimpiarTabla(connection):
+    print("Registros eliminados")
     cursor = connection.cursor()
     cursor.execute(
-        "Insert into ñe values ()"
+        "drop table Articulos;"
+        "drop table Fabricantes"
     )
     connection.commit()
 
+def createTable(connection):
+    print("tabla creada")
+    cursor = connection.cursor()
+    cursor.execute(
+        "create table Fabricantes(CodigoF int identity primary key,Nombre varchar(20) not null)"
+    )
+    connection.commit()
 
+def createTable2(connection):
+    print("tabla creada")
+    cursor = connection.cursor()
+    cursor.execute(
+        "create table Articulos(CodigoA int identity primary key,Descripcion varchar(100) not null,Precio int null,Stock smallint not null,CodFab int not null,foreign key(CodFab) references Fabricantes(CodigoF))"
+    )
+    connection.commit()
 
+def insert(connection):
+    print("datos Almacenados")
+    cursor = connection.cursor()
+    cursor.execute(
+        "insert into Fabricantes ('Nissan'), ('Peugeot'), ('Renault'), ('Ford'), ('Chevrolet'),('Opel');"
+        "insert into Articulos ('Bujia', 1200,300,1), ('Bujia', 1200,300,1), ('Volante', 5200,30,2), ('Radio', 8900,5,3)"
+    )
+    connection.commit()
+def consultaFab(connection):
+    print("Existen los siguientes Fabricantes")
+    cursor = connection.cursor()
+    cursor.execute(
+        "Select * from Fabricantes"
+    )
+    for row in cursor:
+        print(f'fabricantes: {row}')
 
+def consultaArt(connection):
+    print("Existen los siguientes Articulos")
+    cursor = connection.cursor()
+    cursor.execute(
+        "Select * from Articulos"
+    )
+    for row in cursor:
+        print(f'Articulos: {row}')
 
-
-
-
-create(connection)
-connection.closed()
+LimpiarTabla(connection)
+createTable(connection)
+createTable2(connection)
+insert(connection)
+consultaFab(connection)
+consultaArt(connection)
+connection.close()
