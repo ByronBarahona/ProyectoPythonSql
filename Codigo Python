@@ -13,7 +13,7 @@ def LimpiarTabla(connection):
     cursor = connection.cursor()
     cursor.execute(
         "drop table Articulos;"
-        "drop table Fabricantes"
+      "drop table Fabricantes"
     )
     connection.commit()
 
@@ -37,8 +37,8 @@ def insert(connection):
     print("datos Almacenados")
     cursor = connection.cursor()
     cursor.execute(
-        "insert into Fabricantes ('Nissan'), ('Peugeot'), ('Renault'), ('Ford'), ('Chevrolet'),('Opel');"
-        "insert into Articulos ('Bujia', 1200,300,1), ('Bujia', 1200,300,1), ('Volante', 5200,30,2), ('Radio', 8900,5,3)"
+        "insert into Fabricantes values ('Nissan'), ('Peugeot'), ('Renault'), ('Ford'), ('Chevrolet'),('Opel');"
+        "insert into Articulos values ('Bujia', 1200,300,1), ('Bujia', 1200,300,1), ('Volante', 5200,30,2), ('Radio', 8900,5,3)"
     )
     connection.commit()
 def consultaFab(connection):
